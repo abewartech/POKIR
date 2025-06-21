@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import useVisitorStore from '@/stores/visitorStore';
+import useVisitorStore from '../stores/visitorStore';
 
 /**
  * Custom hook for managing visitor data

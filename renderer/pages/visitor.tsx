@@ -77,7 +77,7 @@ export default function Visitor() {
                   type="text"
                   value={data.name ?? ""}
                   onChange={handleChange}
-                  className="bg-[#EFEFEF] border-[#282828]/5 rounded-[6px] p-4 mb-6"
+                  className="bg-[#EFEFEF] border-[#282828]/5 rounded-[6px] px-4 py-3 mb-6"
                   placeholder="Masukkan Nama Lengkap"
                 />
               </div>
@@ -88,7 +88,7 @@ export default function Visitor() {
                   type="email"
                   value={data.email ?? ""}
                   onChange={handleChange}
-                  className="bg-[#EFEFEF] border-[#282828]/5 rounded-[6px] p-4 mb-6"
+                  className="bg-[#EFEFEF] border-[#282828]/5 rounded-[6px] px-4 py-3 mb-6"
                   placeholder="Masukkan Email"
                 />
               </div>
@@ -99,7 +99,7 @@ export default function Visitor() {
                   name="phone_number"
                   value={data.phone_number ?? ""}
                   onChange={handleChange}
-                  className="bg-[#EFEFEF] border-[#282828]/5 rounded-[6px] p-4 mb-6"
+                  className="bg-[#EFEFEF] border-[#282828]/5 rounded-[6px] px-4 py-3 mb-6"
                   placeholder="Masukkan No. Telepon"
                 />
               </div>
@@ -113,7 +113,7 @@ export default function Visitor() {
                   name="date"
                   value={data.date ?? ""}
                   onChange={handleChange}
-                  className="bg-[#EFEFEF] border-[#282828]/5 rounded-[6px] p-4 mb-6"
+                  className="bg-[#EFEFEF] border-[#282828]/5 rounded-[6px] px-4 py-3 mb-6"
                   placeholder="Masukkan No. Telepon"
                 />
               </div>
@@ -123,7 +123,7 @@ export default function Visitor() {
                   name="purpose"
                   value={data.purpose ?? ""}
                   onChange={handleChange}
-                  className="bg-[#EFEFEF] border-[#282828]/5 rounded-[6px] p-4 mb-6"
+                  className="bg-[#EFEFEF] border-[#282828]/5 rounded-[6px] px-4 py-3 mb-6"
                 >
                   <option value="">Pilih Maksud Kunjungan</option>
                   <option value="1">1</option>

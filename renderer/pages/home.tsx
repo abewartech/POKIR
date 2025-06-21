@@ -7,12 +7,13 @@ import spartanIcon from "../public/spartan.svg";
 import arrowIcon from "../public/maki_arrow.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-// import useVisitorData from "@/hooks/useVisitorData";
+import useVisitorData from "../hooks/useVisitorData";
 import { useEffect, useRef, useState } from "react";
+import { Slide } from "react-slideshow-image";
 
 export default function Home() {
   const router = useRouter();
-  // const { visitorCount, loading, error } = useVisitorData();
+  const { visitorCount, loading, error } = useVisitorData();
   const [inactive, setInactive] = useState(false);
   const timerRef = useRef(null);
 
@@ -23,7 +24,7 @@ export default function Home() {
   const resetTimer = () => {
     setInactive(false);
     if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(handleInactivity, 60000); // 60 detik tanpa interaksi
+    timerRef.current = setTimeout(handleInactivity, 5000); // 60 detik tanpa interaksi
   };
 
   useEffect(() => {
@@ -42,22 +43,53 @@ export default function Home() {
     router.push(page);
   };
 
+  const divStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundSize: "contain",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundColor: "#000",
+    height: "100vh",
+  };
+
+  const slideImages = [
+    {
+      url: "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+      caption: "Slide 1",
+    },
+    {
+      url: "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
+      caption: "Slide 2",
+    },
+    {
+      url: "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
+      caption: "Slide 3",
+    },
+  ];
+
   if (inactive) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold mb-4">Tidak ada aktivitas</h1>
-          <p className="mb-4 text-gray-600">
-            Sentuh atau gerakkan mouse untuk kembali ke menu utama.
-          </p>
-        </div>
+      <div className="slide-container">
+        <Slide>
+          {slideImages.map((slideImage, index) => (
+            <div key={index}>
+              <div
+                style={{
+                  ...divStyle,
+                  backgroundImage: `url(${slideImage.url})`,
+                }}
+              ></div>
+            </div>
+          ))}
+        </Slide>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen p-7 flex justify-center flex-col max-w-[60rem] mx-auto">
-      
       <div className="text-[2.25rem] font-bold mb-8 text-[#3C3C3C]">
         Main Menu
       </div>
@@ -80,8 +112,7 @@ export default function Home() {
             title="Visitor"
             subtitle="Visitor Terdaftar"
             textColor="text-[#42B55A]"
-            // value={loading ? "Loading..." : visitorCount}
-            value={20}
+            value={loading ? "Loading..." : visitorCount}
             onClick={() => redirectTo("/visitor")}
           />
         </div>
@@ -97,11 +128,11 @@ export default function Home() {
           onClick={() => redirectTo("/spartan")}
         />
       </div>
-      {/* {error && (
+      {error && (
         <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
           Error: {error}
         </div>
-      )} */}
+      )}
     </div>
   );
 }

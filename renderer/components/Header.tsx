@@ -5,10 +5,11 @@ import layoutMain from "../public/layout_main.svg";
 import layoutSecond from "../public/layout_second.svg";
 import layoutThird from "../public/layout_third.svg";
 import Image from "next/image";
+import useVisitorStore from "../stores/visitorStore";
 
 export default function Header() {
+  const { layout, setLayout } = useVisitorStore();
   const [open, setOpen] = useState(false);
-  const [currentlyActive, setCurrentlyActive] = useState(1);
   const menuRef: any = useRef();
 
   // Close dropdown when clicking outside
@@ -22,12 +23,8 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const selectLayoutStyle = (id) => {
-    setCurrentlyActive(id);
-  };
-
   return (
-    <header className="py-3 sticky top-0 bg-[#ffffff] w-full z-2 ">
+    <header className="py-3 sticky top-0 bg-[#ffffff] w-full z-20">
       <div className="flex max-w-[96rem] justify-between mx-auto px-7">
         <div className="w-5/7">
           <div className="px-8 py-1 font-bold text-[1.5rem] bg-[#A1A1AA] w-fit h-full ">
@@ -35,13 +32,13 @@ export default function Header() {
           </div>
         </div>
         <div className="w-2/7 flex items-center gap-10 justify-end">
-          <nav>
+          {/* <nav>
             <ol className="flex justify-end gap-10">
               <li className="text-[1rem]">Profil</li>
               <li className="text-[1rem]">Visitor</li>
               <li className="text-[1rem]">Redirect</li>
             </ol>
-          </nav>
+          </nav> */}
           <div className="relative inline-block text-left" ref={menuRef}>
             <button
               type="button"
@@ -53,9 +50,9 @@ export default function Header() {
             >
               <Image
                 src={
-                  currentlyActive === 1
+                  layout === 1
                     ? layoutMain
-                    : currentlyActive === 2
+                    : layout === 2
                     ? layoutThird
                     : layoutSecond
                 }
@@ -77,7 +74,10 @@ export default function Header() {
                     role="menuitem"
                     tabIndex={-1}
                     id="menu-item-0"
-                    onClick={() => selectLayoutStyle(1)}
+                    onClick={() => {
+                      setLayout(1);
+                      setOpen((prev) => !prev);
+                    }}
                   >
                     <span>
                       <Image src={layoutMain} alt="main" />
@@ -90,7 +90,10 @@ export default function Header() {
                     role="menuitem"
                     tabIndex={-1}
                     id="menu-item-1"
-                    onClick={() => selectLayoutStyle(2)}
+                    onClick={() => {
+                      setLayout(2);
+                      setOpen((prev) => !prev);
+                    }}
                   >
                     <span>
                       <Image src={layoutThird} alt="second" />
@@ -103,7 +106,10 @@ export default function Header() {
                     role="menuitem"
                     tabIndex={-1}
                     id="menu-item-2"
-                    onClick={() => selectLayoutStyle(3)}
+                    onClick={() => {
+                      setLayout(3);
+                      setOpen((prev) => !prev);
+                    }}
                   >
                     <span>
                       <Image src={layoutSecond} alt="third" />

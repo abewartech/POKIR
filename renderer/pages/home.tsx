@@ -1,5 +1,3 @@
-"use client";
-
 import Menu from "../components/MainMenu/Menu";
 import umkmIcon from "../public/umkm.svg";
 import visitorIcon from "../public/visitor.svg";
@@ -10,6 +8,7 @@ import { useRouter } from "next/navigation";
 import useVisitorData from "../hooks/useVisitorData";
 import { useEffect, useRef, useState } from "react";
 import { Slide } from "react-slideshow-image";
+import { slideImages } from "../data";
 
 export default function Home() {
   const router = useRouter();
@@ -24,7 +23,7 @@ export default function Home() {
   const resetTimer = () => {
     setInactive(false);
     if (timerRef.current) clearTimeout(timerRef.current);
-    timerRef.current = setTimeout(handleInactivity, 5000); // 60 detik tanpa interaksi
+    timerRef.current = setTimeout(handleInactivity, 60000); // 60 detik tanpa interaksi
   };
 
   useEffect(() => {
@@ -53,21 +52,6 @@ export default function Home() {
     backgroundColor: "#000",
     height: "100vh",
   };
-
-  const slideImages = [
-    {
-      url: "https://images.unsplash.com/photo-1509721434272-b79147e0e708?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-      caption: "Slide 1",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1506710507565-203b9f24669b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1536&q=80",
-      caption: "Slide 2",
-    },
-    {
-      url: "https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1500&q=80",
-      caption: "Slide 3",
-    },
-  ];
 
   if (inactive) {
     return (

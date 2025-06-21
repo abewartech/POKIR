@@ -9,6 +9,7 @@ const useVisitorStore = create((set, get) => ({
   },
   loading: false,
   error: null,
+  layout: 1,
 
   // Actions
   fetchVisitors: async () => {
@@ -61,6 +62,10 @@ const useVisitorStore = create((set, get) => ({
 
   setVisitors: (visitorData) => {
     set({ visitors: visitorData });
+  },
+
+  setLayout: (layoutSelected) => {
+    set({ layout: layoutSelected });
   },
 
   clearError: () => {

@@ -4,9 +4,11 @@ import { useState } from "react";
 import useVisitorStore from "../stores/visitorStore";
 import Stepper from "../components/VisitorForm/Stepper";
 import Button from "../components/Button";
+import { useRouter } from "next/navigation";
 
 export default function Visitor() {
-  const { postVisitors } = useVisitorStore();
+  const { error, postVisitors } = useVisitorStore();
+  const router = useRouter();
   const [step, setStep] = useState(1);
   const [data, setData] = useState({
     name: "",
@@ -31,7 +33,8 @@ export default function Visitor() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postVisitors(data);
+    router.push("/response");
+    // postVisitors(data);
   };
 
   return (
@@ -40,7 +43,7 @@ export default function Visitor() {
       <h2 className="text-center leading-[39px] mb-[16px] text-[2.25rem] font-bold">
         Form Visitor
       </h2>
-      <div className="text-center mb-[32px] text-[18px] text-[#929292]">
+      <div className="text-center mb-[32px] max-w-[75%] text-[18px] text-[#929292] mx-auto ">
         You will be sent a confirmation mail when your reservation has been
         confirmed
       </div>
@@ -151,6 +154,11 @@ export default function Visitor() {
           </div>
         </form>
       </Card>
+      {error && (
+        <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+          Error: {error}
+        </div>
+      )}
     </div>
   );
 }

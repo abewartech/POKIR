@@ -21,7 +21,6 @@ export default function Home() {
         <BackButton className="mb-16" />
         <TitleMenu
           bgColor="bg-[#B0C9FF]"
-          icon={umkmIcon}
           title="UMKM"
           className="mb-[1.5rem]"
         />

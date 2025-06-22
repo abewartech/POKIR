@@ -1,3 +1,4 @@
+import { useState } from "react";
 import BackButton from "../../../components/BackButton";
 import Breadcrumb from "../../../components/Breadcrumb";
 import CurrentDate from "../../../components/DetailUMKM/CurrentDate";
@@ -13,7 +14,6 @@ import Date from "../../../components/Date";
 import linkIcon from "../../../public/link.svg";
 import locationIcon from "../../../public/location.svg";
 import Image from "next/image";
-import { useState } from "react";
 
 export default function Home() {
   const { layout } = useVisitorStore();
@@ -25,7 +25,11 @@ export default function Home() {
       {layout !== 3 && (
         <div
           className={`min-h-screen p-7 flex gap-7 max-w-[96rem] mx-auto ${
-            layout === 1 ? "flex-row" : layout === 2 ? "flex-row-reverse" : ""
+            layout === 1
+              ? "flex-row"
+              : layout === 2
+              ? "flex-row-reverse"
+              : ""
           }`}
         >
           <div className="w-3/12 xl:w-2/8 sticky top-24 h-fit">
@@ -34,7 +38,7 @@ export default function Home() {
             <LocationInfo />
           </div>
           <div className="w-9/12 xl:w-6/8 flex flex-col">
-            <div className="flex justify-between mb-16">
+            <div className="flex justify-between mb-8">
               <BackButton />
               <Breadcrumb />
             </div>
@@ -46,15 +50,15 @@ export default function Home() {
       )}
       {layout === 3 && (
         <div
-          className={`h-[calc(100vh-68px)] overflow-hide flex flex-col justify-center p-7 max-w-[96rem] mx-auto`}
+          className={`h-full overflow-hide flex flex-col justify-center p-7 max-w-[96rem] mx-auto`}
         >
           <div className="flex gap-7">
-            <div className="w-9/12">
+            <div className="w-9/12 flex flex-col">
               <div className="flex justify-between mb-10">
                 <BackButton />
                 <Breadcrumb />
               </div>
-              <DescriptionImageVideo size="h-[800px]" />
+              <DescriptionImageVideo size="flex-1" />
             </div>
             <div className="w-3/12 flex flex-col">
               <DescriptionProduct direction="flex-col flex-2" type="full" />

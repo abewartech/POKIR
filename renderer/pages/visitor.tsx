@@ -5,6 +5,7 @@ import useVisitorStore from "../stores/visitorStore";
 import Stepper from "../components/VisitorForm/Stepper";
 import Button from "../components/Button";
 import { useRouter } from "next/navigation";
+import HeaderVisitor from "../components/VisitorForm/HeaderVisitor";
 
 export default function Visitor() {
   const { error, postVisitors } = useVisitorStore();
@@ -38,15 +39,9 @@ export default function Visitor() {
   };
 
   return (
-    <div className="max-w-[36rem] mx-auto h-screen flex flex-col justify-center py-8 px-4">
+    <div className="max-w-[36rem] mx-auto h-full flex flex-col justify-center py-8 px-4">
       <BackButton className="mb-16" />
-      <h2 className="text-center leading-[39px] mb-[16px] text-[2.25rem] font-bold">
-        Form Visitor
-      </h2>
-      <div className="text-center mb-[32px] max-w-[75%] text-[18px] text-[#929292] mx-auto ">
-        You will be sent a confirmation mail when your reservation has been
-        confirmed
-      </div>
+      <HeaderVisitor />
       <Card className="px-10 py-14">
         <Stepper step={step} />
         <form onSubmit={handleSubmit}>
@@ -108,7 +103,9 @@ export default function Visitor() {
                   className="bg-[#EFEFEF] border-[#282828]/5 rounded-[6px] px-4 py-3 mb-5"
                 >
                   <option value="">Pilih Maksud Kunjungan</option>
-                  <option value="1">1</option>
+                  <option value="1">Tujuan 1</option>
+                  <option value="2">Tujuan 2</option>
+                  <option value="3">Tujuan 3</option>
                 </select>
               </div>
               <div className="flex flex-col invisible ">
@@ -130,24 +127,15 @@ export default function Visitor() {
             }`}
           >
             {step === 1 ? (
-              <button
-                type="button"
-                onClick={(e) => changeStep(e, 2)}
-                className="bg-[#2563EB] w-[110px] rounded-[6px] py-[13px] px-6 text-[#ffffff]
-              font-bold cursor-pointer"
-              >
-                Next
-              </button>
+              <Button text="Next" onClick={(e) => changeStep(e, 2)} />
             ) : (
               <>
-                <button
-                  type="button"
+                <Button
+                  text="Kembali"
+                  bgColor="bg-[#E2E2E2]"
+                  color="text-[#444444]"
                   onClick={(e) => changeStep(e, 1)}
-                  className="bg-[#E2E2E2] w-[110px] rounded-[6px] py-[13px] px-6 text-[#444444]
-              font-bold cursor-pointer"
-                >
-                  Kembali
-                </button>
+                />
                 <Button text="Submit" type="submit" />
               </>
             )}

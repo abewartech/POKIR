@@ -6,11 +6,13 @@ export default function Button(props) {
     color = "text-[#ffffff]",
     type = "button",
     text,
+    ...rest
   } = props;
   return (
     <button
       type={type}
       className={`${bgColor} ${width} ${rounded} ${color} py-[13px] px-6 font-bold cursor-pointer`}
+      {...rest}
     >
       {text}
     </button>

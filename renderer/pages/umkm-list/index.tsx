@@ -18,11 +18,11 @@ export default function Home() {
     <>
       <Header />
       <div className="p-7 flex flex-col max-w-[96rem] mx-auto">
-        <BackButton className="mb-16" />
+        <BackButton className="mb-12" />
         <TitleMenu
           bgColor="bg-[#B0C9FF]"
           title="UMKM"
-          className="mb-[1.5rem]"
+          className="mb-[1.25rem]"
         />
         <Breadcrumb />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">

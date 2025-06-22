@@ -65,6 +65,7 @@ const useVisitorStore = create((set, get) => ({
   },
 
   setLayout: (layoutSelected) => {
+    localStorage.setItem("layout_selected", JSON.stringify(layoutSelected));
     set({ layout: layoutSelected });
   },
 

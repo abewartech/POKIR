@@ -135,8 +135,14 @@ export default function Home() {
       {instructionShow && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-[#101010] flex flex-col justify-center rounded-lg shadow-lg max-w-[350px] h-[750px] relative p-8">
-            <Image src={qrCodeIcon} alt="qr code" className="animate-heartbeat"/>
-            <div className="text-[#ffffff] text-center mt-8 text-[20px]">Arahkan QR Code Anda ke alat pemindai di bawah ini.</div>
+            <Image
+              src={qrCodeIcon}
+              alt="qr code"
+              className="animate-heartbeat"
+            />
+            <div className="text-[#ffffff] text-center mt-8 text-[20px]">
+              Arahkan QR Code Anda ke alat pemindai di bawah ini.
+            </div>
             <button
               onClick={() => setInstructionShow(false)}
               className="w-[32px] h-[32px] rounded-full bg-[#B0C9FF] top-[-8px] right-[-8px] absolute"

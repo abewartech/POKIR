@@ -1,5 +1,5 @@
 import Image from "next/image";
-import checkIcon from "../public/check-stepper.svg"; // Pastikan file SVG ini ada di /public
+import checkIcon from "../public/check-stepper.svg";
 import { useRouter } from "next/router";
 
 export default function Response() {

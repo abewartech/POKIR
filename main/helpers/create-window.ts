@@ -3,6 +3,7 @@ import {
   BrowserWindow,
   BrowserWindowConstructorOptions,
   Rectangle,
+  BrowserView,
 } from 'electron'
 import Store from 'electron-store'
 
@@ -84,3 +85,10 @@ export const createWindow = (
 
   return win
 }
+
+export const createBrowserView = (mainWindow: Electron.BrowserWindow) => {
+  const view = new BrowserView();
+  mainWindow.setBrowserView(view);
+  view.setBounds({ x: 0, y: 0, width: 1024, height: 768 });
+  view.webContents.loadURL('https://spartan.bogorkab.go.id/');
+};

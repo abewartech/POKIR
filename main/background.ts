@@ -1,7 +1,7 @@
 import path from "path";
 import { app, ipcMain, screen } from "electron";
 import serve from "electron-serve";
-import { createWindow } from "./helpers";
+import { createWindow, createBrowserView } from "./helpers";
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -11,12 +11,14 @@ if (isProd) {
   app.setPath("userData", `${app.getPath("userData")} (development)`);
 }
 
+let mainWindow: Electron.BrowserWindow | null = null;
+
 (async () => {
   await app.whenReady();
 
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
 
-  const mainWindow = createWindow("main", {
+  mainWindow = createWindow("main", {
     width: width,
     height: height,
     webPreferences: {
@@ -39,4 +41,11 @@ app.on("window-all-closed", () => {
 
 ipcMain.on("message", async (event, arg) => {
   event.reply("message", `${arg} World!`);
+});
+
+// Listen for Spartan page request
+ipcMain.on("show-spartan", () => {
+  if (mainWindow) {
+    createBrowserView(mainWindow);
+  }
 });

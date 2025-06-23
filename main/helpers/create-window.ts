@@ -74,12 +74,20 @@ export const createWindow = (
   const win = new BrowserWindow({
     ...state,
     ...options,
+    fullscreen: options.fullscreen || false,
+    kiosk: options.kiosk || false,
+    autoHideMenuBar: options.autoHideMenuBar || false,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
       ...options.webPreferences,
     },
   })
+
+  // Ensure fullscreen mode is properly set
+  if (options.fullscreen || options.kiosk) {
+    win.setFullScreen(true);
+  }
 
   win.on('close', saveState)
 

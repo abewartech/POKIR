@@ -1,5 +1,5 @@
 import path from "path";
-import { app, ipcMain, screen } from "electron";
+import { app, ipcMain, screen, globalShortcut } from "electron";
 import serve from "electron-serve";
 import { createWindow, createBrowserView } from "./helpers";
 
@@ -21,9 +21,28 @@ let mainWindow: Electron.BrowserWindow | null = null;
   mainWindow = createWindow("main", {
     width: width,
     height: height,
+    fullscreen: true,
+    kiosk: true,
+    autoHideMenuBar: true,
+    alwaysOnTop: true,
+    skipTaskbar: true,
+    frame: false,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
+  });
+
+  // Register keyboard shortcuts to exit kiosk mode
+  globalShortcut.register('F11', () => {
+    if (mainWindow) {
+      mainWindow.setFullScreen(!mainWindow.isFullScreen());
+    }
+  });
+
+  globalShortcut.register('Escape', () => {
+    if (mainWindow && mainWindow.isFullScreen()) {
+      mainWindow.setFullScreen(false);
+    }
   });
 
   if (isProd) {

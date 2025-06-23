@@ -96,7 +96,8 @@ export const createWindow = (
 
 export const createBrowserView = (mainWindow: Electron.BrowserWindow) => {
   const view = new BrowserView();
+   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
   mainWindow.setBrowserView(view);
-  view.setBounds({ x: 0, y: 0, width: 1024, height: 768 });
+  view.setBounds({ x: 0, y: 72, width: width, height: height });
   view.webContents.loadURL('https://spartan.bogorkab.go.id/');
 };

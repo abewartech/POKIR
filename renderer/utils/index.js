@@ -11,8 +11,12 @@ export function unslugify(slug) {
   return slug.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
-export function goBack(router) {
-  router.back();
+export function goBack(router, page) {
+  if (page) {
+    router.push(page);
+  } else {
+    router.back();
+  }
 }
 
 export function setLayoutSelected(layout) {

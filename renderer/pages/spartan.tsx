@@ -9,8 +9,8 @@ export default function Spartan() {
   }, []);
   return (
     <div className="flex flex-col h-screen">
-      <div className="p-7">
-        <BackButton />
+      <div className="px-7 py-5">
+        <BackButton goTo="/home" />
       </div>
       {/* The BrowserView will be shown by the main process */}
     </div>

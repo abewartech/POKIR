@@ -4,11 +4,11 @@ import { useRouter } from "next/navigation";
 import { goBack } from "../utils";
 
 export default function BackButton(props) {
-  const { className = "" } = props;
+  const { className = "", goTo = "" } = props;
   const router = useRouter();
   return (
     <button
-      onClick={() => goBack(router)}
+      onClick={() => goBack(router, goTo)}
       className={`flex items-center gap-3 font-bold cursor-pointer ${className}`}
     >
       <span>

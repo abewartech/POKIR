@@ -66,5 +66,15 @@ ipcMain.on("message", async (event, arg) => {
 ipcMain.on("show-spartan", () => {
   if (mainWindow) {
     createBrowserView(mainWindow);
+  } 
+});
+
+ipcMain.on("navigate-home", () => {
+  if (mainWindow) {
+    // Remove BrowserView if exists
+    if (mainWindow.getBrowserView()) {
+      mainWindow.setBrowserView(null);
+    }
+    mainWindow.loadURL("app://./home");
   }
 });

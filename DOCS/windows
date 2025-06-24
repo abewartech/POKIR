@@ -7,4 +7,5 @@ npx electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --i
 
 
 urutan instalasi
+- anydesk set password
 - tailscale

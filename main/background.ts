@@ -22,9 +22,9 @@ let mainWindow: Electron.BrowserWindow | null = null;
     width: width,
     height: height,
     fullscreen: true,
-    // kiosk: true,
+    kiosk: true,
     autoHideMenuBar: true,
-    alwaysOnTop: false,
+    alwaysOnTop: true,
     skipTaskbar: true,
     frame: false,
     webPreferences: {

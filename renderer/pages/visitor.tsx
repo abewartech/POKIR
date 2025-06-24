@@ -62,6 +62,7 @@ export default function Visitor() {
 
   const nextStep = async (validateForm, setTouched) => {
     setTouchedStep1(true);
+    setShowKeyboard(false);
     await setTouched({
       name: true,
       email: true,
@@ -353,6 +354,11 @@ export default function Visitor() {
                               }
                             }
                           });
+                        } else if (
+                          button === "{shift}" ||
+                          button === "{lock}"
+                        ) {
+                          handleShift();
                         }
                       }}
                     />

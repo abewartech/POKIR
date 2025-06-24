@@ -7,6 +7,7 @@ const useVisitorStore = create((set, get) => ({
     date: "",
     total_visitors: 0,
   },
+  visitData: {},
   loading: false,
   error: null,
   layout: 1,
@@ -46,12 +47,15 @@ const useVisitorStore = create((set, get) => ({
         `${process.env.NEXT_PUBLIC_API_BASE_URL}/visitors/register-with-visit`,
         data
       );
-
-      set({
-        visitors: response.data,
-        loading: false,
-      });
+      if (response.status === 201) {
+        set({
+          visitData: response.data.visit,
+          loading: false,
+        });
+      }
     } catch (error) {
+      console.log(error);
+
       set({
         error: error.response?.data?.message || error.message,
         loading: false,

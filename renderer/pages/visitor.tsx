@@ -1,6 +1,6 @@
 import BackButton from "../components/BackButton";
 import Card from "../components/Card";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import useVisitorStore from "../stores/visitorStore";
 import Stepper from "../components/VisitorForm/Stepper";
 import Button from "../components/Button";
@@ -13,6 +13,8 @@ import userIcon from "../public/user.svg";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import Image from "next/image";
+import dayjs from "dayjs";
+import { useRouter } from "next/navigation";
 
 // Schema validasi untuk step 1
 const stepOneSchema = Yup.object().shape({
@@ -32,9 +34,14 @@ const stepTwoSchema = Yup.object().shape({
 });
 
 export default function Visitor() {
-  const { error, postVisitors } = useVisitorStore();
+  const { visitData, error, postVisitors } = useVisitorStore();
   const [step, setStep] = useState(1);
   const [touchedStep1, setTouchedStep1] = useState(false);
+  const router = useRouter();
+
+  if(visitData.queue_number) {
+    router.push("/response");
+  }
 
   const handleSubmit = (values) => {
     postVisitors(values);
@@ -75,7 +82,7 @@ export default function Visitor() {
               name: "",
               email: "",
               phone_number: "",
-              date: "",
+              date: dayjs().format("YYYY-MM-DD"),
               purpose: "",
             }}
             validationSchema={step === 1 ? stepOneSchema : stepTwoSchema}
@@ -177,6 +184,7 @@ export default function Visitor() {
                         <Field
                           name="date"
                           type="date"
+                          disabled
                           className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
                             touched.date && errors.date
                               ? "border border-red-500"
@@ -259,7 +267,9 @@ export default function Visitor() {
             )}
           </Formik>
         </Card>
-          <div className="mt-1 text-[#9D9D9D] text-center mb-3">Visitor Management System</div>
+        <div className="mt-1 text-[#9D9D9D] text-center mb-3">
+          Visitor Management System
+        </div>
         {error && (
           <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
             Error: {error}

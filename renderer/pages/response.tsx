@@ -1,9 +1,12 @@
 import Image from "next/image";
 import checkIcon from "../public/check-stepper.svg";
 import { useRouter } from "next/router";
+import useVisitorStore from "../stores/visitorStore";
 
 export default function Response() {
   const router = useRouter();
+  const { visitData } = useVisitorStore();
+
 
   return (
     <div className="max-w-[30rem] mx-auto h-screen flex flex-col justify-center py-8 px-4">
@@ -19,7 +22,7 @@ export default function Response() {
         </div>
         <div className="flex justify-center mb-7">
           <span className="inline-block bg-[#AAFFBC] text-[#42B55A] px-12 py-4 rounded-[12px] text-[6rem] font-bold">
-            90
+            {visitData.queue_number}
           </span>
         </div>
         {/* <div className="mt-4 p-4 w-full bg-red-100 border border-red-400 text-red-700 rounded">
@@ -28,7 +31,7 @@ export default function Response() {
         <div className="text-center text-[18px] text-[#929292]">
           Silakan tunggu sebentar untuk proses pencetakan nomor antrian Anda.
         </div>
-        <button
+        {/* <button
           className="mt-10 bg-[#2563EB] w-full rounded-[6px] py-[13px] px-6 text-[#ffffff]
               font-bold cursor-pointer"
         >
@@ -42,7 +45,7 @@ export default function Response() {
               font-bold cursor-pointer"
         >
           Kembali Ke Halaman Awal
-        </button>
+        </button> */}
       </div>
     </div>
   );

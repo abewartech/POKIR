@@ -125,7 +125,7 @@ export default function Home() {
                 Error: {error}
               </div>
             )}
-            <div
+            {/* <div
               className="flex justify-center mt-4 p-4 font-bold text-[18px] cursor-pointer text-[#FFFFFF]"
               onClick={() => setInstructionShow(true)}
             >
@@ -138,7 +138,7 @@ export default function Home() {
                 />
               </span>
               Schedule Visitor
-            </div>
+            </div> */}
           </div>
           {instructionShow && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">

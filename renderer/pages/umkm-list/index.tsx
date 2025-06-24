@@ -27,7 +27,11 @@ export default function Home() {
             className="mb-[1.25rem]"
           />
           <div className="relative">
-            <Image src={searchIcon} alt="search" className="absolute bottom-3 left-4" />
+            <Image
+              src={searchIcon}
+              alt="search"
+              className="absolute bottom-3 left-4"
+            />
             <input
               type="text"
               className="py-2 pe-3 ps-11 rounded-[8px] border border-2 w-[250px]"
@@ -37,9 +41,12 @@ export default function Home() {
         </div>
         <Breadcrumb />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
-          {[...Array(5)].map((_, i) => (
+          {[...Array(8)].map((_, i) => (
             <UMKMProfile key={i} action={() => navigateToDetail(i + 1)} />
           ))}
+        </div>
+        <div className="mx-auto mt-8">
+          <button className="text-[#2563EB] bg-[#B0C9FF] font-bold py-3 px-12 rounded-[12px]">Muat Lebih Banyak</button>
         </div>
       </div>
     </>

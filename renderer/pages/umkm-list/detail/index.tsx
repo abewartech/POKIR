@@ -14,8 +14,12 @@ import Date from "../../../components/Date";
 import linkIcon from "../../../public/link.svg";
 import locationIcon from "../../../public/location.svg";
 import Image from "next/image";
+import { Slide } from "react-slideshow-image";
+import ItemContent from "../../../components/ItemContent";
+import { useRouter } from "next/router";
 
 export default function Home() {
+  const router = useRouter();
   const { layout } = useVisitorStore();
   const [showModal, setShowModal] = useState(false);
   const [showModalLink, setShowModalLink] = useState(false);
@@ -25,11 +29,7 @@ export default function Home() {
       {layout !== 3 && (
         <div
           className={`min-h-screen p-7 flex gap-7 max-w-[96rem] mx-auto ${
-            layout === 1
-              ? "flex-row"
-              : layout === 2
-              ? "flex-row-reverse"
-              : ""
+            layout === 1 ? "flex-row" : layout === 2 ? "flex-row-reverse" : ""
           }`}
         >
           <div className="w-3/12 xl:w-2/8 sticky top-24 h-fit">
@@ -63,7 +63,18 @@ export default function Home() {
             <div className="w-3/12 flex flex-col">
               <DescriptionProduct direction="flex-col flex-2" type="full" />
               <Card title="Produk Lainnya" className="flex-1">
-                <div className="h-[250px] rounded-[10px] bg-[#A1A1AA]"></div>
+                <div className="slide-container">
+                  <Slide>
+                    {[...Array(4)].map((_, i) => (
+                      <ItemContent
+                        action={() => router.push("/umkm-list/detail")}
+                        title={`Product - ${i + 1}`}
+                        subtitle="Rp 500.000"
+                        isActiveFeedback={false}
+                      />
+                    ))}
+                  </Slide>
+                </div>
               </Card>
             </div>
           </div>

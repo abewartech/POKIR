@@ -42,11 +42,18 @@ export default function Home() {
         <Breadcrumb />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
           {[...Array(8)].map((_, i) => (
-            <UMKMProfile key={i} action={() => navigateToDetail(i + 1)} />
+            <UMKMProfile
+              key={i}
+              action={() => navigateToDetail(i + 1)}
+              title={`UMKM - ${i + 1}`}
+              subtitle={`Subtitle UMKM ${i + 1}`}
+            />
           ))}
         </div>
         <div className="mx-auto mt-8">
-          <button className="text-[#2563EB] bg-[#B0C9FF] font-bold py-3 px-12 rounded-[12px]">Muat Lebih Banyak</button>
+          <button className="text-[#2563EB] bg-[#B0C9FF] font-bold py-3 px-12 rounded-[12px]">
+            Muat Lebih Banyak
+          </button>
         </div>
       </div>
     </>

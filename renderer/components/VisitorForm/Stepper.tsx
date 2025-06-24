@@ -17,7 +17,7 @@ export default function Stepper(props) {
         </span>
       </li>
       <li className="flex items-center">
-        <span className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 shrink-0 font-bold">
+        <span className="flex items-center justify-center w-10 h-10 bg-blue-100 rounded-full lg:h-12 lg:w-12 shrink-0 font-bold text-blue-500">
           2
         </span>
       </li>

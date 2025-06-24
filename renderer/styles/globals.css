@@ -3,6 +3,18 @@
 @tailwind utilities;
 @import "react-slideshow-image/dist/styles.css";
 
+.react-slideshow-container .nav:first-of-type {
+  left: -17px !important;
+}
+
+.react-slideshow-container .nav:last-of-type {
+  right: -17px !important;
+}
+
+.react-slideshow-container .nav:first-of-type svg,  .react-slideshow-container .nav:last-of-type svg {
+  width: 14px;;
+}
+
 @layer base {
   body {
     background-color: #fafafa;

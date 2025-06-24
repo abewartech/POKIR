@@ -49,6 +49,9 @@ export default function Header() {
               <li className="text-[1rem]">
                 <Link href="/spartan">SPARTAN</Link>
               </li>
+               <li className="text-[1rem]">
+                <Link href="#">Wayfinder</Link>
+              </li>
             </ol>
           </nav>
           <div className="relative inline-block text-left" ref={menuRef}>

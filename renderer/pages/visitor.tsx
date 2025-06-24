@@ -64,203 +64,208 @@ export default function Visitor() {
   };
 
   return (
-    <div className="max-w-[36rem] mx-auto h-full flex flex-col justify-center py-8 px-4">
+    <div className="p-5">
       <BackButton className="mb-14" />
-      <HeaderVisitor />
-      <Card className="px-10 py-14">
-        <Stepper step={step} />
-        <Formik
-          initialValues={{
-            name: "",
-            email: "",
-            phone_number: "",
-            date: "",
-            purpose: "",
-          }}
-          validationSchema={step === 1 ? stepOneSchema : stepTwoSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ validateForm, setTouched, errors, touched }) => (
-            <Form>
-              {step === 1 ? (
-                <>
-                  <div className="flex flex-col mb-4">
-                    <label className="mb-2 text-[#444444]">Nama Lengkap</label>
-                    <div className="relative">
-                      <Image
-                        src={userIcon}
-                        alt="user"
-                        className="absolute bottom-4 left-3"
-                      />
-                      <Field
-                        name="name"
-                        type="text"
-                        className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
-                          (touchedStep1 || touched.name) && errors.name
-                            ? "border border-red-500"
-                            : "border-[#282828]/5"
-                        }`}
-                        placeholder="Masukkan Nama Lengkap"
-                      />
-                    </div>
-                    <ErrorMessage
-                      name="name"
-                      component="p"
-                      className="text-red-500 text-sm"
-                    />
-                  </div>
-                  <div className="flex flex-col mb-4">
-                    <label className="mb-2 text-[#444444]">Email</label>
-                    <div className="relative">
-                      <Image
-                        src={idCardIcon}
-                        alt="idCard"
-                        className="absolute bottom-4 left-3"
-                      />
-                      <Field
-                        name="email"
-                        type="email"
-                        className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
-                          (touchedStep1 || touched.email) && errors.email
-                            ? "border border-red-500"
-                            : "border-[#282828]/5"
-                        }`}
-                        placeholder="Masukkan Email"
-                      />
-                    </div>
-                    <ErrorMessage
-                      name="email"
-                      component="p"
-                      className="text-red-500 text-sm"
-                    />
-                  </div>
-                  <div className="flex flex-col mb-4">
-                    <label className="mb-2 text-[#444444]">No. Telp</label>
-                    <div className="relative">
-                      <Image
-                        src={phoneIcon}
-                        alt="phone"
-                        className="absolute bottom-4 left-3"
-                      />
-                      <Field
-                        name="phone_number"
-                        type="tel"
-                        className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
-                          (touchedStep1 || touched.phone_number) &&
-                          errors.phone_number
-                            ? "border border-red-500"
-                            : "border-[#282828]/5"
-                        }`}
-                        placeholder="Contoh: 081234567890 (tanpa tanda baca)"
-                      />
-                    </div>
-                    <ErrorMessage
-                      name="phone_number"
-                      component="p"
-                      className="text-red-500 text-sm"
-                    />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="flex flex-col mb-4">
-                    <label className="mb-2 text-[#444444]">Tanggal</label>
-                    <div className="relative">
-                      <Image
-                        src={calendarIcon}
-                        alt="calendar"
-                        className="absolute bottom-4 left-3"
-                      />
-                      <Field
-                        name="date"
-                        type="date"
-                        className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
-                          touched.date && errors.date
-                            ? "border border-red-500"
-                            : "border-[#282828]/5"
-                        }`}
-                      />
-                    </div>
-                    <ErrorMessage
-                      name="date"
-                      component="p"
-                      className="text-red-500 text-sm"
-                    />
-                  </div>
-                  <div className="flex flex-col mb-4">
-                    <label className="mb-2 text-[#444444]">
-                      Maksud Kunjungan
-                    </label>
-                    <div className="relative">
-                      <Image
-                        src={helpIcon}
-                        alt="help"
-                        className="absolute bottom-4 left-3"
-                      />
-                      <Field
-                        as="select"
-                        name="purpose"
-                        className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
-                          touched.purpose && errors.purpose
-                            ? "border border-red-500"
-                            : "border-[#282828]/5"
-                        }`}
-                      >
-                        <option value="">Pilih Maksud Kunjungan</option>
-                        <option value="1">Tujuan 1</option>
-                        <option value="2">Tujuan 2</option>
-                        <option value="3">Tujuan 3</option>
-                      </Field>
-                    </div>
-                    <ErrorMessage
-                      name="purpose"
-                      component="p"
-                      className="text-red-500 text-sm "
-                    />
-                  </div>
-                  <div className="flex flex-col invisible">
-                    <label className="mb-2 text-[#444444]">No. Telp</label>
-                    <input
-                      type="tel"
-                      className="bg-[#EFEFEF] border-[#282828]/5 rounded-[6px] p-4 mb-6"
-                      placeholder="Masukkan No. Telepon"
-                    />
-                  </div>
-                </>
-              )}
-              <div
-                className={`mt-8 flex ${
-                  step === 1 ? "justify-end" : "justify-between"
-                }`}
-              >
+      <div className="max-w-[34rem] mx-auto h-full flex flex-col justify-center ">
+        <HeaderVisitor />
+        <Card className="px-12 py-14">
+          <Stepper step={step} />
+          <Formik
+            initialValues={{
+              name: "",
+              email: "",
+              phone_number: "",
+              date: "",
+              purpose: "",
+            }}
+            validationSchema={step === 1 ? stepOneSchema : stepTwoSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ validateForm, setTouched, errors, touched }) => (
+              <Form>
                 {step === 1 ? (
-                  <Button
-                    text="Next"
-                    onClick={() => nextStep(validateForm, setTouched)}
-                    type="button"
-                  />
+                  <>
+                    <div className="flex flex-col mb-4">
+                      <label className="mb-2 text-[#444444]">
+                        Nama Lengkap
+                      </label>
+                      <div className="relative">
+                        <Image
+                          src={userIcon}
+                          alt="user"
+                          className="absolute bottom-4 left-3"
+                        />
+                        <Field
+                          name="name"
+                          type="text"
+                          className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
+                            (touchedStep1 || touched.name) && errors.name
+                              ? "border border-red-500"
+                              : "border-[#282828]/5"
+                          }`}
+                          placeholder="Masukkan Nama Lengkap"
+                        />
+                      </div>
+                      <ErrorMessage
+                        name="name"
+                        component="p"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                    <div className="flex flex-col mb-4">
+                      <label className="mb-2 text-[#444444]">Email</label>
+                      <div className="relative">
+                        <Image
+                          src={idCardIcon}
+                          alt="idCard"
+                          className="absolute bottom-4 left-3"
+                        />
+                        <Field
+                          name="email"
+                          type="email"
+                          className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
+                            (touchedStep1 || touched.email) && errors.email
+                              ? "border border-red-500"
+                              : "border-[#282828]/5"
+                          }`}
+                          placeholder="Masukkan Email"
+                        />
+                      </div>
+                      <ErrorMessage
+                        name="email"
+                        component="p"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                    <div className="flex flex-col mb-4">
+                      <label className="mb-2 text-[#444444]">No. Telp</label>
+                      <div className="relative">
+                        <Image
+                          src={phoneIcon}
+                          alt="phone"
+                          className="absolute bottom-4 left-3"
+                        />
+                        <Field
+                          name="phone_number"
+                          type="tel"
+                          className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
+                            (touchedStep1 || touched.phone_number) &&
+                            errors.phone_number
+                              ? "border border-red-500"
+                              : "border-[#282828]/5"
+                          }`}
+                          placeholder="Contoh: 081234567890 (tanpa tanda baca)"
+                        />
+                      </div>
+                      <ErrorMessage
+                        name="phone_number"
+                        component="p"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                  </>
                 ) : (
                   <>
-                    <Button
-                      text="Kembali"
-                      bgColor="bg-[#E2E2E2]"
-                      color="text-[#444444]"
-                      onClick={prevStep}
-                      type="button"
-                    />
-                    <Button text="Submit" type="submit" />
+                    <div className="flex flex-col mb-4">
+                      <label className="mb-2 text-[#444444]">Tanggal</label>
+                      <div className="relative">
+                        <Image
+                          src={calendarIcon}
+                          alt="calendar"
+                          className="absolute bottom-4 left-3"
+                        />
+                        <Field
+                          name="date"
+                          type="date"
+                          className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
+                            touched.date && errors.date
+                              ? "border border-red-500"
+                              : "border-[#282828]/5"
+                          }`}
+                        />
+                      </div>
+                      <ErrorMessage
+                        name="date"
+                        component="p"
+                        className="text-red-500 text-sm"
+                      />
+                    </div>
+                    <div className="flex flex-col mb-4">
+                      <label className="mb-2 text-[#444444]">
+                        Maksud Kunjungan
+                      </label>
+                      <div className="relative">
+                        <Image
+                          src={helpIcon}
+                          alt="help"
+                          className="absolute bottom-4 left-3"
+                        />
+                        <Field
+                          as="select"
+                          name="purpose"
+                          className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
+                            touched.purpose && errors.purpose
+                              ? "border border-red-500"
+                              : "border-[#282828]/5"
+                          }`}
+                        >
+                          <option value="">Pilih Maksud Kunjungan</option>
+                          <option value="1">Tujuan 1</option>
+                          <option value="2">Tujuan 2</option>
+                          <option value="3">Tujuan 3</option>
+                        </Field>
+                      </div>
+                      <ErrorMessage
+                        name="purpose"
+                        component="p"
+                        className="text-red-500 text-sm "
+                      />
+                    </div>
+                    <div className="flex flex-col invisible">
+                      <label className="mb-2 text-[#444444]">No. Telp</label>
+                      <input
+                        type="tel"
+                        className="bg-[#EFEFEF] border-[#282828]/5 rounded-[6px] p-4 mb-6"
+                        placeholder="Masukkan No. Telepon"
+                      />
+                    </div>
                   </>
                 )}
-              </div>
-            </Form>
-          )}
-        </Formik>
-      </Card>
-      {error && (
-        <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-          Error: {error}
-        </div>
-      )}
+                <div
+                  className={`mt-8 flex ${
+                    step === 1 ? "justify-end" : "justify-between"
+                  }`}
+                >
+                  {step === 1 ? (
+                    <Button
+                      text="Next"
+                      onClick={() => nextStep(validateForm, setTouched)}
+                      type="button"
+                    />
+                  ) : (
+                    <>
+                      <Button
+                        text="Kembali"
+                        bgColor="bg-[#E2E2E2]"
+                        color="text-[#444444]"
+                        onClick={prevStep}
+                        type="button"
+                      />
+                      <Button text="Submit" type="submit" />
+                    </>
+                  )}
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </Card>
+          <div className="mt-1 text-[#9D9D9D] text-center mb-3">Visitor Management System</div>
+        {error && (
+          <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+            Error: {error}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

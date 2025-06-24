@@ -5,8 +5,9 @@ import Breadcrumb from "../../components/Breadcrumb";
 import TitleMenu from "../../components/MainMenu/TitleMenu";
 import UMKMProfile from "../../components/UMKMList/UMKMProfile";
 import Header from "../../components/Header";
-import umkmIcon from "../../public/umkm.svg";
+import searchIcon from "../../public/search.svg";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Home() {
   const router = useRouter();
@@ -19,11 +20,21 @@ export default function Home() {
       <Header />
       <div className="p-7 flex flex-col max-w-[96rem] mx-auto">
         <BackButton className="mb-12" />
-        <TitleMenu
-          bgColor="bg-[#B0C9FF]"
-          title="UMKM"
-          className="mb-[1.25rem]"
-        />
+        <div className="flex justify-between items-center ">
+          <TitleMenu
+            bgColor="bg-[#B0C9FF]"
+            title="UMKM"
+            className="mb-[1.25rem]"
+          />
+          <div className="relative">
+            <Image src={searchIcon} alt="search" className="absolute bottom-3 left-4" />
+            <input
+              type="text"
+              className="py-2 pe-3 ps-11 rounded-[8px] border border-2 w-[250px]"
+              placeholder="Cari UMKM"
+            />
+          </div>
+        </div>
         <Breadcrumb />
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
           {[...Array(5)].map((_, i) => (

@@ -13,8 +13,9 @@ export function unslugify(slug) {
 
 export function goBack(router, page) {
   if (page) {
-    router.push(page);
     window.ipc.send("navigate-home");
+    router.push(page);
+    
   } else {
     router.back();
   }

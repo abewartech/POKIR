@@ -1,6 +1,6 @@
 import BackButton from "../components/BackButton";
 import Card from "../components/Card";
-import { use, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import useVisitorStore from "../stores/visitorStore";
 import Stepper from "../components/VisitorForm/Stepper";
 import Button from "../components/Button";
@@ -15,7 +15,9 @@ import * as Yup from "yup";
 import Image from "next/image";
 import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
-
+import { useKeyboard } from "../hooks/useKeyboard";
+import Keyboard from "react-simple-keyboard";
+import "react-simple-keyboard/build/css/index.css";
 // Schema validasi untuk step 1
 const stepOneSchema = Yup.object().shape({
   name: Yup.string().required("Nama lengkap harus diisi"),
@@ -34,12 +36,22 @@ const stepTwoSchema = Yup.object().shape({
 });
 
 export default function Visitor() {
+  useKeyboard();
   const { visitData, error, postVisitors } = useVisitorStore();
   const [step, setStep] = useState(1);
+  const [activeInputName, setActiveInputName] = useState(null);
   const [touchedStep1, setTouchedStep1] = useState(false);
   const router = useRouter();
+  const [inputValues, setInputValues] = useState({
+    name: "",
+    email: "",
+    phone_number: "",
+  });
+  const [showKeyboard, setShowKeyboard] = useState(false);
+  const [layout, setLayout] = useState("default");
+  const keyboard = useRef<any>();
 
-  if(visitData.queue_number) {
+  if (visitData.queue_number) {
     router.push("/response");
   }
 
@@ -70,9 +82,16 @@ export default function Visitor() {
     setStep(step - 1);
   };
 
+  const handleShift = () => {
+    const newLayoutName = layout === "default" ? "shift" : "default";
+    setLayout(newLayoutName);
+  };
+
   return (
     <div className="p-5">
       <BackButton className="mb-14" />
+      {/* <button onClick={showTouchKeyboard}>Tes</button> */}
+
       <div className="max-w-[34rem] mx-auto h-full flex flex-col justify-center ">
         <HeaderVisitor />
         <Card className="px-12 py-14">
@@ -88,7 +107,14 @@ export default function Visitor() {
             validationSchema={step === 1 ? stepOneSchema : stepTwoSchema}
             onSubmit={handleSubmit}
           >
-            {({ validateForm, setTouched, errors, touched }) => (
+            {({
+              validateForm,
+              setTouched,
+              errors,
+              touched,
+              setFieldValue,
+              values,
+            }) => (
               <Form>
                 {step === 1 ? (
                   <>
@@ -103,6 +129,7 @@ export default function Visitor() {
                           className="absolute bottom-4 left-3"
                         />
                         <Field
+                          id="name"
                           name="name"
                           type="text"
                           className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
@@ -111,6 +138,18 @@ export default function Visitor() {
                               : "border-[#282828]/5"
                           }`}
                           placeholder="Masukkan Nama Lengkap"
+                          onFocus={() => {
+                            if (
+                              keyboard.current &&
+                              typeof keyboard.current.setInput === "function"
+                            ) {
+                              keyboard.current.setInput(values.name || "");
+                            }
+                            setActiveInputName("name");
+                            setShowKeyboard(true);
+                          }}
+                          // onBlur={() => setShowKeyboard(false)}
+                          // onFocus={showTouchKeyboard}
                         />
                       </div>
                       <ErrorMessage
@@ -128,6 +167,7 @@ export default function Visitor() {
                           className="absolute bottom-4 left-3"
                         />
                         <Field
+                          id="email"
                           name="email"
                           type="email"
                           className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
@@ -136,6 +176,17 @@ export default function Visitor() {
                               : "border-[#282828]/5"
                           }`}
                           placeholder="Masukkan Email"
+                          onFocus={() => {
+                            if (
+                              keyboard.current &&
+                              typeof keyboard.current.setInput === "function"
+                            ) {
+                              keyboard.current.setInput(values.email || "");
+                            }
+                            setActiveInputName("email");
+                            setShowKeyboard(true);
+                          }}
+                          // onBlur={() => setShowKeyboard(false)}
                         />
                       </div>
                       <ErrorMessage
@@ -153,6 +204,7 @@ export default function Visitor() {
                           className="absolute bottom-4 left-3"
                         />
                         <Field
+                          id="phone_number"
                           name="phone_number"
                           type="tel"
                           className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
@@ -162,6 +214,19 @@ export default function Visitor() {
                               : "border-[#282828]/5"
                           }`}
                           placeholder="Contoh: 081234567890 (tanpa tanda baca)"
+                          onFocus={() => {
+                            if (
+                              keyboard.current &&
+                              typeof keyboard.current.setInput === "function"
+                            ) {
+                              keyboard.current.setInput(
+                                values.phone_number || ""
+                              );
+                            }
+                            setActiveInputName("phone_number");
+                            setShowKeyboard(true);
+                          }}
+                          // onBlur={() => setShowKeyboard(false)}
                         />
                       </div>
                       <ErrorMessage
@@ -182,6 +247,7 @@ export default function Visitor() {
                           className="absolute bottom-4 left-3"
                         />
                         <Field
+                          id="date"
                           name="date"
                           type="date"
                           disabled
@@ -209,6 +275,7 @@ export default function Visitor() {
                           className="absolute bottom-4 left-3"
                         />
                         <Field
+                          id="purpose"
                           as="select"
                           name="purpose"
                           className={`bg-[#EFEFEF] rounded-[6px] ps-12 w-full pe-4 py-3 mb-1 ${
@@ -263,6 +330,34 @@ export default function Visitor() {
                     </>
                   )}
                 </div>
+                {showKeyboard && (
+                  <div className="mt-3">
+                    <Keyboard
+                      keyboardRef={(r) => (keyboard.current = r)}
+                      layoutName={layout}
+                      onChange={(input) => {
+                        if (activeInputName) {
+                          setFieldValue(activeInputName, input);
+                        }
+                      }}
+                      onKeyPress={(button) => {
+                        if (button === "{enter}") {
+                          validateForm().then((errors) => {
+                            if (!errors[activeInputName]) {
+                              if (activeInputName === "name") {
+                                document.getElementById("email").focus();
+                              } else if (activeInputName === "email") {
+                                document.getElementById("phone_number").focus();
+                              } else {
+                                setShowKeyboard(false);
+                              }
+                            }
+                          });
+                        }
+                      }}
+                    />
+                  </div>
+                )}
               </Form>
             )}
           </Formik>

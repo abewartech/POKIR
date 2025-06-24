@@ -21,12 +21,12 @@ let mainWindow: Electron.BrowserWindow | null = null;
   mainWindow = createWindow("main", {
     width: width,
     height: height,
-    // fullscreen: true,
-    // kiosk: true,
-    // autoHideMenuBar: true,
-    // alwaysOnTop: true,
-    // skipTaskbar: true,
-    // frame: false,
+    fullscreen: true,
+    kiosk: true,
+    autoHideMenuBar: true,
+    alwaysOnTop: true,
+    skipTaskbar: true,
+    frame: false,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
@@ -66,7 +66,7 @@ ipcMain.on("message", async (event, arg) => {
 ipcMain.on("show-spartan", () => {
   if (mainWindow) {
     createBrowserView(mainWindow);
-  } 
+  }
 });
 
 ipcMain.on("navigate-home", () => {

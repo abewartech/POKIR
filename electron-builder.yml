@@ -1,6 +1,6 @@
-appId: com.example.nextron
-productName: My Nextron App
-copyright: Copyright © 2018 Yoshihide Shiono
+appId: com.pokir.bogor
+productName: POKIR BOGOR
+copyright: Copyright © 2024 Yoshihide Shiono
 directories:
   output: dist
   buildResources: resources

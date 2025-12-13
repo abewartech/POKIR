@@ -12,6 +12,7 @@ if (isProd) {
 }
 
 let mainWindow: Electron.BrowserWindow | null = null;
+const browserViewCache = new Map<string, Electron.BrowserView>();
 
 (async () => {
   await app.whenReady();
@@ -55,6 +56,8 @@ let mainWindow: Electron.BrowserWindow | null = null;
 })();
 
 app.on("window-all-closed", () => {
+  // Clean up cached BrowserViews
+  browserViewCache.clear();
   app.quit();
 });
 
@@ -62,23 +65,35 @@ ipcMain.on("message", async (event, arg) => {
   event.reply("message", `${arg} World!`);
 });
 
+// Function to get or create cached BrowserView
+const getBrowserView = (url: string): Electron.BrowserView => {
+  if (browserViewCache.has(url)) {
+    return browserViewCache.get(url)!;
+  }
+  const view = createBrowserView(mainWindow!, url);
+  browserViewCache.set(url, view);
+  return view;
+};
+
 // Listen for Spartan page request
 ipcMain.on("show-spartan", () => {
   if (mainWindow) {
-    createBrowserView(mainWindow, "https://bogor.imigrasi.go.id/");
+    const view = getBrowserView("https://bogor.imigrasi.go.id/");
+    mainWindow.setBrowserView(view);
   }
 });
 
 // Listen for Map page request
 ipcMain.on("show-map", () => {
   if (mainWindow) {
-    createBrowserView(mainWindow, "https://map.monitoringmalaria.site");
+    const view = getBrowserView("https://map.monitoringmalaria.site");
+    mainWindow.setBrowserView(view);
   }
 });
 
 ipcMain.on("navigate-home", () => {
   if (mainWindow) {
-    // Remove BrowserView if exists
+    // Remove BrowserView if exists, but keep cached
     if (mainWindow.getBrowserView()) {
       mainWindow.setBrowserView(null);
     }

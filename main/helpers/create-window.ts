@@ -94,10 +94,10 @@ export const createWindow = (
   return win;
 };
 
-export const createBrowserView = (mainWindow: Electron.BrowserWindow, url: string) => {
+export const createBrowserView = (mainWindow: Electron.BrowserWindow, url: string): Electron.BrowserView => {
   const view = new BrowserView();
   const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-  mainWindow.setBrowserView(view);
   view.setBounds({ x: 0, y: 72, width: width, height: height });
   view.webContents.loadURL(url);
+  return view;
 };

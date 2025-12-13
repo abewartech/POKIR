@@ -65,7 +65,14 @@ ipcMain.on("message", async (event, arg) => {
 // Listen for Spartan page request
 ipcMain.on("show-spartan", () => {
   if (mainWindow) {
-    createBrowserView(mainWindow);
+    createBrowserView(mainWindow, "https://bogor.imigrasi.go.id/");
+  }
+});
+
+// Listen for Map page request
+ipcMain.on("show-map", () => {
+  if (mainWindow) {
+    createBrowserView(mainWindow, "https://map.monitoringmalaria.site");
   }
 });
 

@@ -117,22 +117,22 @@ export default function Home() {
               </div>
               <div className="w-2/4 transition-transform duration-200 hover:scale-105">
                 <Menu
-                  bgColor="bg-[#AAFFBC]"
-                  icon={visitorIcon}
-                  title="Visitor"
-                  subtitle="Visitor Terdaftar"
-                  textColor="text-[#42B55A]"
-                  value={loading ? "Loading..." : visitorCount}
-                  onClick={() => redirectTo("/visitor")}
-                />
+                bgColor="bg-[#FBA197]"
+                icon={spartanIcon}
+                title={settings?.title || "MAP Direktori"}
+                subtitle={settings?.description || "Jelejah Ruang dan Blueprint"}
+                textColor="text-[#CD4637]"
+                value={<Image src={arrowIcon} alt="arrow" />}
+                onClick={() => redirectTo("/map")}
+              />
               </div>
             </div>
             <div className="w-4/4 transition-transform duration-200 hover:scale-105">
               <Menu
                 bgColor="bg-[#FBA197]"
                 icon={spartanIcon}
-                title={settings?.title || "SPARTAN"}
-                subtitle={settings?.description || "Sistem Perizinan Administrasi Ternak & Ikan"}
+                title={settings?.title || "IMIGRASI"}
+                subtitle={settings?.description || "Situs Resmi Kantor Imigrasi Kelas II Non TPI Bogor"}
                 textColor="text-[#CD4637]"
                 value={<Image src={arrowIcon} alt="arrow" />}
                 onClick={() => redirectTo("/spartan")}

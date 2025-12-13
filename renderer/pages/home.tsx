@@ -119,8 +119,8 @@ export default function Home() {
                 <Menu
                 bgColor="bg-[#FBA197]"
                 icon={spartanIcon}
-                title={settings?.title || "MAP Direktori"}
-                subtitle={settings?.description || "Jelejah Ruang dan Blueprint"}
+                title={"MAP Direktori"}
+                subtitle={"Jelejah Ruang dan Blueprint"}
                 textColor="text-[#CD4637]"
                 value={<Image src={arrowIcon} alt="arrow" />}
                 onClick={() => redirectTo("/map")}

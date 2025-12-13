@@ -1,6 +1,6 @@
 import BackButton from "../components/BackButton";
 import Card from "../components/Card";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import useVisitorStore from "../stores/visitorStore";
 import Stepper from "../components/VisitorForm/Stepper";
 import Button from "../components/Button";
@@ -50,6 +50,20 @@ export default function Visitor() {
   const [showKeyboard, setShowKeyboard] = useState(false);
   const [layout, setLayout] = useState("default");
   const keyboard = useRef<any>();
+  const [purposes, setPurposes] = useState([]);
+
+  useEffect(() => {
+    const fetchPurposes = async () => {
+      try {
+        const response = await fetch('https://cmsimigrasi.monitoringmalaria.space/api/purposes');
+        const data = await response.json();
+        setPurposes(data.data);
+      } catch (error) {
+        console.error('Failed to fetch purposes:', error);
+      }
+    };
+    fetchPurposes();
+  }, []);
 
   if (visitData.queue_number) {
     router.push("/response");
@@ -286,9 +300,11 @@ export default function Visitor() {
                           }`}
                         >
                           <option value="">Pilih Maksud Kunjungan</option>
-                          <option value="1">Tujuan 1</option>
-                          <option value="2">Tujuan 2</option>
-                          <option value="3">Tujuan 3</option>
+                          {purposes.map((purpose) => (
+                            <option key={purpose.id} value={purpose.id}>
+                              {purpose.name}
+                            </option>
+                          ))}
                         </Field>
                       </div>
                       <ErrorMessage

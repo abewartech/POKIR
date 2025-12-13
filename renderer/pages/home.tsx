@@ -17,7 +17,20 @@ export default function Home() {
   const { visitorCount, loading, error, clearError } = useVisitorData();
   // const [inactive, setInactive] = useState(false);
   const [instructionShow, setInstructionShow] = useState(false);
+  const [settings, setSettings] = useState(null);
   // const timerRef = useRef(null);
+
+  useEffect(() => {
+    const baseUrl = 'https://cmsimigrasi.monitoringmalaria.space';
+    fetch(`${baseUrl}/api/settings`)
+      .then(res => res.json())
+      .then(data => {
+        const fullLogo = `${baseUrl}/images/templates/${data.logo}`;
+        const fullBg = `${baseUrl}/images/templates/${data.background_image}`;
+        setSettings({ ...data, logo: fullLogo, background_image: fullBg });
+      })
+      .catch(console.error);
+  }, []);
 
   // const handleInactivity = () => {
   //   setInactive(true);
@@ -80,21 +93,26 @@ export default function Home() {
     <>
       <div className="relative min-h-screen">
         <div className="absolute inset-0 bg-black/60 z-0 pointer-events-none"></div>
-        <div className="bg-[url('/bg.png')]">
+        <div style={{ backgroundImage: `url(${settings?.background_image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
           <div className="relative z-1 min-h-screen p-7 flex justify-center flex-col max-w-[60rem] mx-auto ">
+            {settings?.logo && (
+              <div className="mb-4 flex justify-center">
+                <Image src={settings.logo} alt="logo" width={100} height={100} />
+              </div>
+            )}
             <div className="text-[2.25rem] font-bold mb-8 text-[#ffffff]">
               Main Menu
             </div>
             <div className="flex gap-6">
               <div className="w-2/4 transition-transform duration-200 hover:scale-105">
                 <Menu
-                  bgColor="bg-[#B0C9FF]"
-                  icon={umkmIcon}
-                  title="UMKM"
-                  subtitle="UMKM Terdaftar"
-                  textColor="text-[#2563EB]"
-                  value={50}
-                  onClick={() => redirectTo("/umkm-list")}
+                  bgColor="bg-[#AAFFBC]"
+                  icon={visitorIcon}
+                  title="Visitor"
+                  subtitle="Visitor Terdaftar"
+                  textColor="text-[#42B55A]"
+                  value={loading ? "Loading..." : visitorCount}
+                  onClick={() => redirectTo("/visitor")}
                 />
               </div>
               <div className="w-2/4 transition-transform duration-200 hover:scale-105">
@@ -113,8 +131,8 @@ export default function Home() {
               <Menu
                 bgColor="bg-[#FBA197]"
                 icon={spartanIcon}
-                title="SPARTAN"
-                subtitle="Sistem Perizinan Administrasi Ternak & Ikan"
+                title={settings?.title || "SPARTAN"}
+                subtitle={settings?.description || "Sistem Perizinan Administrasi Ternak & Ikan"}
                 textColor="text-[#CD4637]"
                 value={<Image src={arrowIcon} alt="arrow" />}
                 onClick={() => redirectTo("/spartan")}

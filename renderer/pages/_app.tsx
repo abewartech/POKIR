@@ -8,7 +8,7 @@ import useVisitorStore from "../stores/visitorStore";
 declare global {
   interface Window {
     scannerAPI?: {
-      sendBarcode: (barcode: string) => Promise<{ success: boolean; status?: number; error?: string }>;
+      sendBarcode: (barcode: string) => Promise<{ ok: boolean; status?: number; error?: string }>;
     };
   }
 }

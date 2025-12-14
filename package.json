@@ -20,6 +20,7 @@
     "formik": "^2.4.6",
     "react-simple-keyboard": "^3.8.87",
     "react-slideshow-image": "^4.3.2",
+    "ws": "^8.18.3",
     "yup": "^1.6.1",
     "zustand": "^5.0.5"
   },

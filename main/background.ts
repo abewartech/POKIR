@@ -13,6 +13,7 @@ const isProd = process.env.NODE_ENV === "production";
 const PRINTER_NAME = "\\\\localhost\\POS-80C";
 const LINE_WIDTH = 48;
 const WS_URL = "wss://nr.siege.id/ws/handleprint";
+const CLIENT_ID = `electron-01`;
 
 /* ================= HELPERS ================= */
 
@@ -71,13 +72,29 @@ function connectWebSocket() {
     console.log("🔌 WebSocket connected");
   });
 
-  wsClient.on("message", (msg) => {
+  wsClient.on("message", async (msg) => {
     try {
       const data = JSON.parse(msg.toString());
       console.log("📩 Print job received:", data);
-      printViaCopy(data);
+
+      // Request lock
+      const lockRes = await fetch("https://bogorimigrasi.net/api/print-lock", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          queue_id: data.queue_id,
+          client_id: CLIENT_ID
+        })
+      });
+
+      const lockData = await lockRes.json();
+      if (lockData.lockGranted) {
+        printViaCopy(data);
+      } else {
+        console.log("❌ Lock not granted, skipping print");
+      }
     } catch (err) {
-      console.error("❌ Invalid WS data:", err);
+      console.error("❌ Invalid WS data or lock error:", err);
     }
   });
 

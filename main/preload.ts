@@ -22,5 +22,6 @@ const handler = {
 
 contextBridge.exposeInMainWorld("ipc", handler);
 
-
-export type IpcHandler = typeof handler;
+contextBridge.exposeInMainWorld("scannerAPI", {
+  sendBarcode: (barcode) => ipcRenderer.invoke("send-barcode", barcode),
+});

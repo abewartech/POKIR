@@ -100,3 +100,19 @@ ipcMain.on("navigate-home", () => {
     // mainWindow.loadURL("app://./home");
   }
 });
+
+ipcMain.handle("send-barcode", async (_event, barcode: string) => {
+  try {
+    const res = await fetch("https://nr.siege.id/api/zebrascanner", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ barcode }),
+    });
+
+    return { success: true, status: res.status };
+  } catch (err: any) {
+    return { success: false, error: err.message };
+  }
+});
